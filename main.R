@@ -3,8 +3,8 @@
 ######################################################################
 
 rm(list=ls())
-load("matcount_1095199.RData")
-load("Disp_1095199.RData")
+load("data.RData")
+load("dispersion_param.RData")
 
 source('TMMnorm.R')
 matr.norm <- TMMnorm(matcount, 1, 0.1)
@@ -109,8 +109,8 @@ for (i in (1:13)){ # using d.frame, I already have the disjointed names of the v
     mean_CTRL <- mean(matr.diff[ind.CTRL])
     mean_INS <- mean(matr.diff[ind.INS])
     } else{
-  mean_CTRL <- apply(matr.diff[,ind.CTRL],1,mean)
-  mean_INS <- apply(matr.diff[,ind.INS],1,mean)
+  mean_CTRL <- apply(matr.diff[,ind.CTRL], 1, mean)
+  mean_INS <- apply(matr.diff[,ind.INS], 1, mean)
   MAT[,i] <- log(mean_INS+1)-log(mean_CTRL+1)}
 }
 
@@ -134,12 +134,12 @@ if(K%%2==0) {num.colonne=K/2} else
   
 layout(matrix(c(1:(2*num.colonne)),2,num.colonne,byrow=TRUE))
 for (i in (1:K)) {
-  plot(list_Kmeans$centroids[i,],type="l",col="red",main=paste("Cluster",i),xlab="time_istant",ylab="Profile")
+  plot(list_Kmeans$centroids[i,], type="l", col="red", main=paste("Cluster",i), xlab="time_istant", ylab="Profile")
   num.el <- length(which(list_Kmeans$clustering==i))
   if (num.el!=0) {
     elementi <- which(list_Kmeans$clustering==i)
     for (j in (1:num.el)) 
-      lines(MAT[elementi[j],],col="grey")
+      lines(MAT[elementi[j],], col="grey")
   }
 }
 
